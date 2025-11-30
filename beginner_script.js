@@ -71,27 +71,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 4. FUNCTION DEFINITIONS ---
 
-    /**
-     * TUTORIAL: ARRAY USAGE
-     * This function cycles through our 'navTitlesArray' and updates the text 
-     * in the navigation bar's links.
-     */
-    function updateNavText() {
-        // Use a loop to iterate over the nav link elements (navLinks array).
-        // The loop runs three times: once for nav-link-0, nav-link-1, and nav-link-2.
-        for (let i = 0; i < navLinks.length; i++) {
-            // Check if the array contains the required title before assigning (safety check)
-            if (navTitlesArray[i]) {
-                // Set the text content of the HTML link element to the value in the array.
-                // We are mapping navLinks[0] to navTitlesArray[0], [1] to [1], etc.
-                navLinks[i].textContent = navTitlesArray[i];
-            }
-        }
-        
-        // As a bonus, change the main subtitle to indicate the change.
-        subtitleElement.textContent = "Navigation links successfully updated by JavaScript!";
-        subtitleElement.style.color = '#34D399'; // Green accent
+// NEW index tracker (add this near your other variables)
+let navIndex = 0;
+
+function updateNavText() {
+
+    // Cycle through nav titles correctly
+    for (let i = 0; i < navLinks.length; i++) {
+        const title = navTitlesArray[(navIndex + i) % navTitlesArray.length];
+        navLinks[i].textContent = title;
     }
+
+    // Move forward for next button click
+    navIndex = (navIndex + 1) % navTitlesArray.length;
+
+    // Update subtitle for user feedback
+    subtitleElement.textContent = "Navigation links successfully updated!";
+    subtitleElement.style.color = '#34D399';
+}
 
     /**
      * TUTORIAL: CONDITIONAL (IF/ELSE) STATEMENTS
@@ -132,4 +129,5 @@ document.addEventListener('DOMContentLoaded', () => {
             statusMessageElement.style.textShadow = 'none';
         }
     }
+
 });
